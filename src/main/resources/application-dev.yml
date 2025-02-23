@@ -1,0 +1,79 @@
+# 配置开发环境的数据源
+spring:
+  # 数据源
+  datasource:
+    # 数据库链接驱动器（mysql8中使用驱动必须加 cj ）
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/whale_sea?characterEncoding=UTF-8&serverTimezone=GMT%2b8&useSSL=true
+    username: root
+    password: 567cybtfboys
+    # 数据库连接池
+    hikari:
+      # 连接池空闲链接的最小数量（不建议设置，默认是10）
+      # minimum-idle: 1
+      # 最大连接池链接数
+      maximum-pool-size: 30
+      auto-commit: true
+      # 超时时间：单位是毫秒
+      connection-timeout: 30000
+
+  # redis 配置
+  redis:
+    # 地址
+    host: 127.0.0.1
+    # 端口，默认：6379
+    port: 6379
+    # 密码
+    # password: 0tIxKtzsf2,默认：无
+    # 指定数据库索引。使用索引为0的数据库
+    database: 0
+    # 链接超时时间
+    timeout: 10s
+    # 设置连接池参数
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 32
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: 300ms
+        # 链接池中的最大空闲链接数
+        max-idle: 16
+        # 连接池中的最小空闲链接数
+        min-idle: 8
+
+  # 任务调度线程池（SpringBoot中提供了自动配置线程的方法）
+  # 配置完之后定时任务可以并行异步执行
+  task:
+    # 任务执行线程池配置
+    execution:
+      pool:
+        # 核心线程大小。默认：8
+        core-size: 8
+        # 线程池最大数，无默认值
+        max-size: 20
+        # 线程空闲等待时间。默认值：60s
+        keep-alive: 60s
+        # 是否允许核心线程超时。这样可以动态增加和缩小线程池
+        allow-core-thread-timeout: true
+        # 线程池。队列容量大小
+        queue-capacity: 100
+      # 线程池关闭时等待所以任务完成
+      shutdown:
+        await-termination: false
+      # 线程名称前缀
+      thread-name-prefix: client-thread-
+  # kafka配置
+  kafka:
+    # 指定 kafka 链接地址。（可以是单个机器哦，也可以是一个集群）
+    bootstrap-servers: 10.11.101.49:9092,10.11.101.48:9092,10.11.101.51:9092
+    # 生产者配置
+    producer:
+
+    # 消费者配置
+    consumer:
+
+# 项目中的线程池配置
+threadPool:
+  corePoolSize: 100
+  maxPoolSize: 300
+  queueCapacity: 600

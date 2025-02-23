@@ -1,0 +1,84 @@
+# Tomcat配置
+# 设置请求端口号
+server:
+  port: 8009
+# Spring配置
+spring:
+  # 配置多源环境
+  profiles:
+    active: dev
+  # 指定该项目的唯一标识，在注册中心中便于寻找
+  application:
+    name: whale_fall
+  # 设置 SpringBoot中自带jackson的配置
+  jackson:
+    # 设置全局的 dataFormat 日期格式化的模式
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 设置全局的时区
+    time-zone: GMT+8
+    # 设置全局属性序列化的方式(不为空的属性才会被序列化)
+    default-property-inclusion: non_null
+  # 配置MVC的前缀以及后缀
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+  # 指定静态资源所在的位置
+  web:
+    resources:
+      static-locations:
+        - classpath:/templates/
+        - classpath:/web/
+
+
+# mybatis-plus 配置
+mybatis-plus:
+  # mybatis-plus全局策略配置
+  global-config:
+    # 是否在控制台输出 mybatis-plus 的LOGO （默认值：true）
+    banner: true
+    # 是否使用  SqlRunner ,SqlRunner是操作数据库的一个工具类，对JDBC进行了很好的封装，默认为：false
+    enable-sql-runner: false
+    # mybatis-plus全局策略中DB策略配置
+    db-config:
+      # 配置全局默认主键类型。默认值：assign_id
+      id-type: assign_id
+      # 开启字段的验证策略。默认值：MOT_NULL
+      select-strategy: DEFAULT
+      insert-strategy: IGNORED
+      update-strategy: IGNORED
+  # 原生 mybatis 支持的配置，在这个下面可以使用 mybatis 中的属性进配置
+  configuration:
+    # 开启自动驼峰命名规则，sub_name(数据表字段) -> subName(实体属性)，默认值为：false
+    map-underscore-to-camel-case: true
+    # 设置 mybatis-plus 打印日志的形式
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # xml文件路径信息(classpath代表的是 resources路径 )，默认值：["classpath*":/mapper/**/*.xml"]
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  # 设置设置别名时的包扫描路径信息。直接将类名作为别名，而不使用全限定名称
+  type-aliases-package: com/sea/whale/entity
+  # 启动时是否检查 MyBatis 的 xml 文件是否存在，默认不检查
+  check-config-location: false
+  # 指定 MyBatis-plus 的执行器，执行器有三种(SIMPLE、REUSE、BATCH)，默认为：SIMPLE
+  executor-type: simple
+  # 指定外部化 mybatis-plus 配置，通过该配置可以抽取配置，实现不同环境的配置部署
+  # configuration-properties: null
+
+# 日志配置
+# 配置打印日志的级别
+#logging:
+#  level:
+#    root: warn
+
+# springfox 扫描代码，生成API文档的配置
+springfox:
+  documentation:
+    swagger-ui:
+      # 是否使用swagger-ui记录API信息。
+      enabled: true
+
+# 自定义属性。可以使用 @Value(${属性名})
+customize:
+  property: whale_fall
+
+
