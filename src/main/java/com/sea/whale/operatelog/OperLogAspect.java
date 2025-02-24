@@ -1,6 +1,7 @@
 package com.sea.whale.operatelog;
 
 import cn.hutool.json.JSONUtil;
+import com.sea.whale.config.ExecutePoolConfig;
 import com.sea.whale.exception.AppException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -44,7 +44,7 @@ public class OperLogAspect {
     private ApplicationContext applicationContext;
 
     @Resource
-    private TaskExecutor taskExecutor;
+    private ExecutePoolConfig executePoolConfig;
 
 
     @SneakyThrows
@@ -68,7 +68,7 @@ public class OperLogAspect {
             username = URLDecoder.decode((username), StandardCharsets.UTF_8);
         }
         OperateLogPojo operateLogPojo = new OperateLogPojo(opLog, username, joinPoint.getArgs());
-        taskExecutor.execute(()->applicationContext.getBean(opLog.handler()).handler(operateLogPojo));
+        executePoolConfig.taskExecutor().execute(()->applicationContext.getBean(opLog.handler()).handler(operateLogPojo));
         return result;
     }
     private String getRequestParams(HttpServletRequest request, ProceedingJoinPoint joinPoint) {
@@ -114,7 +114,7 @@ public class OperLogAspect {
             exceptionMessage = e.toString();
         }
         String finalExceptionMessage = exceptionMessage;
-        taskExecutor.execute(()->applicationContext.getBean(opLog.handler()).failHandler(operateLogPojo, finalExceptionMessage));
+        executePoolConfig.taskExecutor().execute(()->applicationContext.getBean(opLog.handler()).failHandler(operateLogPojo, finalExceptionMessage));
         applicationContext.getBean(opLog.handler()).failHandler(operateLogPojo, finalExceptionMessage);
 
     }

@@ -3,10 +3,6 @@ package com.sea.whale.exception;
 import com.sea.whale.enums.ResultEnum;
 import lombok.Getter;
 
-/**
- * @author chengyunbo@gyyx.cn
- * @since 2023-03-28
- */
 @Getter
 public class AppException extends RuntimeException{
 

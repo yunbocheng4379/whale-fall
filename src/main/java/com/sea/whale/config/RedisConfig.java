@@ -1,8 +1,4 @@
-package com.sea.whale.config;/**
- * @author : YunboCheng
- * @date : 18:15 2022-08-28
- */
-
+package com.sea.whale.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,7 +1,4 @@
-package com.sea.whale.config;/**
- * @author : YunboCheng
- * @date : 18:15 2022-08-28
- */
+package com.sea.whale.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

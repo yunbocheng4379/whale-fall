@@ -1,4 +1,4 @@
-package com.sea.whale.entity.vo;
+package com.sea.whale.entity;
 
 import com.sea.whale.enums.ResultEnum;
 import io.swagger.annotations.ApiModel;
@@ -8,8 +8,8 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
-@ApiModel(value = "结果集实体", description = "统一结果集封装")
 @Data
+@ApiModel(value = "结果集实体", description = "统一结果集封装")
 public class R {
 
     @ApiModelProperty("成功状态")

@@ -1,7 +1,7 @@
 package com.sea.whale.aop;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
-import com.sea.whale.entity.vo.R;
+import com.sea.whale.entity.R;
 import com.sea.whale.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;

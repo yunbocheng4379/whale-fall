@@ -3,10 +3,6 @@ package com.sea.whale.aop;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-/**
- * @author chengyunbo@gyyx.cn
- * @since 2023-03-09
- */
 public class EnumValueValidator implements ConstraintValidator<EnumValue,Object>{
 
     private String[] strValues;

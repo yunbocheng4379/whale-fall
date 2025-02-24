@@ -1,7 +1,4 @@
-package com.sea.whale.config;/**
- * @author : YunboCheng
- * @date : 18:16 2022-08-28
- */
+package com.sea.whale.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;

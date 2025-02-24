@@ -1,7 +1,4 @@
-package com.sea.whale.config;/**
- * @author : YunboCheng
- * @date : 18:14 2022-08-28
- */
+package com.sea.whale.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +10,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 
-//@EnableAsync
-//@Configuration
+@EnableAsync
+@Configuration
 public class ExecutePoolConfig {
 
     @Value(value = "${threadPool.corePoolSize}")
