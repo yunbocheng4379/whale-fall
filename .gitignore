@@ -21,7 +21,6 @@ target/
 *.zip
 *.tar.gz
 *.rar
-*.xml
 *.iml
 logs/
 node_modules/

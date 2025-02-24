@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
+<!-- xmlns: 命名空间，类似包名，因为xml的标签是可以自定义的，需要指定命名空间 -->
+<!-- xmlns:xsi: xml遵循的标签规范 -->
+<!-- xsi:schemaLocation:  用来定义xmlschema的地址，也就是xml书写时需要遵循的语法-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- 声明项目描述符遵循哪一个POM模型版本 -->
+    <modelVersion>4.0.0</modelVersion>
+    <!-- 继承父类的依赖版本号 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.9</version>
+        <!-- 该路径默认为：.../pom.xml，如果路径不一样，可以手动进行指定 -->
+        <relativePath/>
+    </parent>
+
+    <!-- 项目的坐标 -->
+    <!--
+        公司或组织的唯一标志，并且配置时生成的路径也是由此生成的，
+        如 com.whale.fall ，maven会讲项目打成的jar包放在本地路径: com/whale/fall 下
+     -->
+    <groupId>com.sea</groupId>
+    <!-- 本项目的唯一ID，一个groupId下可能多个项目，此时就是靠这个标识进行区分的 -->
+    <artifactId>java-framework</artifactId>
+    <!-- 本项项目所处的版本号 -->
+    <version>0.0.1-SNAPSHOT</version>
+    <!-- 打包类型：jar、war、pom、maven-plugin、rar等等 -->
+    <packaging>jar</packaging>
+    <!-- 项目的名字，Maven生成的文档用，可省略 -->
+    <name>whale_fall</name>
+    <!-- 项目的简单描述（鲸落于海，星辰于洼） -->
+    <description>Whales fall on the sea, stars in the pools</description>
+    <!-- 项目主页的链接 -->
+    <url>https://github.com/yunbocheng</url>
+
+    <!-- 依赖版本 -->
+    <properties>
+        <java.version>8</java.version>
+        <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
+        <mysql-connector-java>8.0.16</mysql-connector-java>
+        <lombok.version>1.18.20</lombok.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <generator.version>3.5.3</generator.version>
+        <validation.version>3.0.4</validation.version>
+        <swagger-annotations.version>1.5.20</swagger-annotations.version>
+        <springfox.version>3.0.0</springfox.version>
+        <fastjson.version>1.2.83</fastjson.version>
+        <hutool-all.version>5.1.2</hutool-all.version>
+    </properties>
+
+    <!-- SpringBoot项目的基础依赖 -->
+    <dependencies>
+
+        <!-- SpringBoot的Web启动依赖 -->
+        <dependency>
+            <!-- 依赖项的组织名 -->
+            <groupId>org.springframework.boot</groupId>
+            <!-- 依赖项的子项目名 -->
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 可选依赖、依赖排除 -->
+            <!-- 排除关联依赖的引入，可以引入多个依赖排除 -->
+            <!-- 排除springboot自带的logback框架 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--SpringBoot的单元测试依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <!-- 依赖项的适用范围：
+                compile: （默认值）。适用于所有阶段，项目在运行、编译以及测试中都可以使用，并且会随着项目直接发布。
+                provided: 项目在编译、测试阶段时有效。
+                runtime: 运行时使用，在测试和运行时有效。如JDBC
+                test: 只在测试时使用，在编译、运行、发布时不起作用。
+                system: 需要显式提供包含依赖的jar包，Maven不会在Repository中进行查找。
+                optional: 当项目自身被依赖时，标注依赖是否传递。用于连续依赖时使用。
+            -->
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 开启支持面向切面编程 AOP -->
+        <!--
+             这些依赖之所以不用写版本号，是因为继承了父POM，并且在父POM中存在<dependencyManagement>标签
+             在这个标签中不用显示的列出版本号。
+             在子项目中，Maven会沿着父子层次向上走，直到找到一个拥有dependencyManagement元素的项目，
+             然后它就会使用在这个dependencyManagement元素中指定的版本号。
+
+             注意：
+             dependencyManagement标签中只是声明依赖，并不是实现依赖引入。相当于只是定义好了一些依赖提供给子类使用，
+             但是自己不能实际的使用。
+             如果不在子项目中声明依赖，是不会从父项目中继承下来的；
+             只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取自父pom。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- 用于安全防护策略 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- 开启JWT的模式进行安全认证 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-jwt</artifactId>-->
+<!--            <version>${spring-security-jwt.version}</version>-->
+<!--        </dependency>-->
+
+        <!-- MySQL依赖 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java}</version>
+        </dependency>
+
+        <!-- JDBC -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <!-- lombok依赖。简化实体类的编写 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <!-- 日志依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <!-- @RequestMapping注解定义了请求映射"/"，使用Thymeleaf模板引擎渲染了一个名为"index"的页面 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+
+        <!-- MyBatis-plus依赖，简化CRUD -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <!-- MyBatis-plus 代码生成器的依赖 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${generator.version}</version>
+        </dependency>
+
+        <!-- Web页面模板引擎-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+        <!-- Validator依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>${validation.version}</version>
+        </dependency>
+
+        <!-- swagger依赖 -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-annotations.version}</version>
+        </dependency>
+
+        <!-- 可以自定义编写API文档依赖 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+
+        <!-- Redis依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Apache提供的一个Java对象池 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!-- JSON处理库 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+        <!-- Java工具类 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
+
+
+        <!-- xxl-job 依赖 -->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+
+    </dependencies>
+    <!-- 构建设置 -->
+    <!-- build中主要标签：Resources 和 Plugins -->
+    <build>
+        <!-- 指定资源路径信息，资源文件管理 -->
+        <resources>
+            <!-- 用于引用或排除资源文件 -->
+            <!-- 可以指定多个资源文件的路径 -->
+            <resource>
+                <!--
+                       主要用来替换项目中的资源文件（* .xml、* . properties）当中的$ {…}属性值如$ {db.url}
+                       如果filtering=tru 在resources目录中存在资源文件并且 配置了db.url=aaa的话，
+                       在项目编译的时候，就会自动的把pom文件中的${db.url}替换为aaa
+                -->
+                <filtering>false</filtering>
+                <!-- 描述存放资源的目录，该路径相对 pom.xml 文件 -->
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 包含的模式列表 -->
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <!-- 排除的模式列表，排除该资源包下的 .properties 文件 -->
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <!-- 设置构建的插件 -->
+        <!--
+             Maven通过plugins和pluginManagement来管理插件，类似于dependencies 和 dependencyManagement
+             同样是在该文件中声明依赖吵插件，继承父类中的插件。
+             pluginManagement： 只是用于声明插件，并不会被实际的引用。
+             plugins：声明该项目中用到的插件，从父类中继承
+        -->
+        <plugins>
+<!--            <plugin>-->
+<!--                &lt;!&ndash; SpringBoor中自带的Maven插件 &ndash;&gt;-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
