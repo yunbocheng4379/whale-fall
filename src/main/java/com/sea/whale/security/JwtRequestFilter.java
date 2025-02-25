@@ -1,10 +1,8 @@
 package com.sea.whale.security;
 
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -41,8 +39,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
         String token = request.getHeader("Authorization");
         if (validateToken(token)) {
-            Claims claims = JwtUtil.parseToken(token);
-            log.info(String.valueOf(claims));
+            Boolean existFlag = JwtUtil.parseToken(token);
+            log.info("token状态：" + (existFlag ? "正常" : "过期"));
         } else {
             // 如果token无效，可以抛出异常或者设置响应状态码
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
