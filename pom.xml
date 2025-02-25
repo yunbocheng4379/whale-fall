@@ -224,6 +224,41 @@
             <version>2.3.0</version>
         </dependency>
 
+        <!-- springBoot-security 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- 该模块包含 security 命名空间解析代码和Java配置代码，如需要将XML命名空间进行配置或 Spring Security 的 Java 配置支持 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <!-- 该模块包含过滤器和相关的web安全基础设施代码,如servlet API依赖的东西，认证服务和基于URL的访问控制-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+
+        <!--      jwt认证模块-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.10.2</version>
+        </dependency>
+        <!--      jwt api impl实现-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.10.2</version>
+        </dependency>
+        <!--      jwt json-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.10.2</version>
+        </dependency>
 
     </dependencies>
     <!-- 构建设置 -->

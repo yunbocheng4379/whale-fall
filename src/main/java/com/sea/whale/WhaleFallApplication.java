@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 @SpringBootApplication
-@MapperScan("com/sea/whale/mapper")
+@MapperScan("com.sea.whale.mapper")
 @EnableOpenApi
 @EnableTransactionManagement
 @EnableAsync
