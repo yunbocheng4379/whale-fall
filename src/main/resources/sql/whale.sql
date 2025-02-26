@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 24/02/2025 22:02:16
+ Date: 26/02/2025 21:59:46
 */
 
 SET NAMES utf8mb4;
@@ -41,15 +41,15 @@ CREATE TABLE `operate_log`  (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户名',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户密码',
   `flag` tinyint(1) NULL DEFAULT NULL COMMENT '用户状态(0: 删除，1: 正常)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '程云博', '123456', 1);
+INSERT INTO `user` VALUES (2, '程云博', '$2a$10$P/S2NXwl4QstLR5zHECfMebeEx44h/mtHw/2dxxGg2nHTUGGxfkmO', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;

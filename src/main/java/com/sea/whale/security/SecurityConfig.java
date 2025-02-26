@@ -63,7 +63,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticatorProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         //设置密码加密器
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(new BCryptPasswordEncoder());
         //设置用户信息获取服务 获取用户信息
         provider.setUserDetailsService(resUserBiz);
         return provider;
