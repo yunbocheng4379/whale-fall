@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * @author chengyunbo@gyyx.cn
+ * @author chengyunbo
  * @since 2024-02-23
  */
 @Component

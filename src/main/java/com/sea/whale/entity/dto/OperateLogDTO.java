@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author chengyunbo@gyyx.cn
+ * @author chengyunbo
  * @since 2024-02-23
  */
 @Data

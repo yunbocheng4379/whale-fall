@@ -4,12 +4,15 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import com.sea.whale.entity.R;
 import com.sea.whale.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import static com.sea.whale.enums.ResultEnum.USER_NOT_EXIST;
+
 /**
- * @author chengyunbo@gyyx.cn
+ * @author chengyunbo
  * @since 2023-03-28
  */
 @RestControllerAdvice
@@ -32,6 +35,12 @@ public class ExceptionAdvice {
     public R exceptionHandle(Exception e) {
         log.error(ExceptionUtil.stacktraceToString(e));
         return R.error("服务器错误");
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public R handleBadCredentialsException(BadCredentialsException e) {
+        log.error("用户名或密码输入错误，登录失败：{}", e.getMessage());
+        return R.error(USER_NOT_EXIST);
     }
 
 }

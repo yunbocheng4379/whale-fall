@@ -3,7 +3,7 @@ package com.sea.whale.operatelog;
 import org.springframework.stereotype.Component;
 
 /**
- * @author chengyunbo@gyyx.cn
+ * @author chengyunbo
  * @since 2024-02-23
  */
 @Component

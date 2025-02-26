@@ -1,6 +1,7 @@
 package com.sea.whale.entity;
 
 import com.sea.whale.enums.ResultEnum;
+import com.sea.whale.exception.AppException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -58,6 +59,14 @@ public class R {
         r.setSuccess(false);
         r.setCode(resultEnum.getCode());
         r.setMessage(resultEnum.getMessage());
+        return r;
+    }
+
+    public static R error(AppException appException) {
+        R r = new R();
+        r.setSuccess(false);
+        r.setCode(appException.getCode());
+        r.setMessage(appException.getMessage());
         return r;
     }
 

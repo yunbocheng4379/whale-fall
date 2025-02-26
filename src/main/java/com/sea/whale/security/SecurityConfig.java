@@ -14,8 +14,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -29,32 +30,30 @@ import java.util.List;
  * Security配置类
  * </p>
  *
- * @author chengyunbo03@gyyx.cn
+ * @author chengyunbo
  * @since 2025-02-25 11:09
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /*
+     - resUserBizImpl必须实现UserDetailsService接口
+     - UserDetailsService接口是spring security的用户认证接口
+     - 用于从数据库中读取用户信息
+    */
+    private ResUserBizImpl resUserBiz;
 
     // 提前定义白名单路径集合
     List<RequestMatcher> permitAllMatchers = Arrays.asList(
             new AntPathRequestMatcher("/user/login", "POST"),
-            new AntPathRequestMatcher("/user/register", "POST"),
-            new AntPathRequestMatcher("/user/logout", "POST"),
-            new AntPathRequestMatcher("/captcha/getCaptcha", "GET")
+            new AntPathRequestMatcher("/user/logout", "POST")
     );
 
     @Bean //配置加密器
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();// 加密方式
     }
-    /*
-       resUserBizImpl必须实现UserDetailsService接口
-       UserDetailsService接口是spring security的用户认证接口
-       用于从数据库中读取用户信息
-     */
-    private ResUserBizImpl resUserBiz;
 
     @Autowired //这里使用set方法注入，可以避免循环依赖
     public void setResUserBiz(ResUserBizImpl resUserBiz) {
@@ -91,13 +90,17 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 //禁用http基本认证，因为传输数据用的post，且请求体为JSON
                 .httpBasic(AbstractHttpConfigurer::disable)
+                //添加自定义的JWT过滤器
+                .addFilterBefore(new JwtRequestFilter(permitAllMatchers),  FilterSecurityInterceptor.class)
+                //Security异常拦截
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint())
+                )
                 // 权限配置
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(permitAllMatchers.toArray(new RequestMatcher[0])).permitAll()
                         .anyRequest().authenticated()
-                )
-         //添加自定义的JWT过滤器
-            .addFilterBefore(new JwtRequestFilter(permitAllMatchers),  UsernamePasswordAuthenticationFilter.class);
+                );
         return http.build();
     }
 
@@ -116,5 +119,9 @@ public class SecurityConfig {
         };
     }
 
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new AuthenticationHandler();
+    }
 
 }

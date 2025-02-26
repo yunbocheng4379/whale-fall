@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +15,10 @@ import java.util.List;
 
 /**
  * <p>
- * 封装用户安全验证信息实体
+ * 封装Security安全验证用户信息实体
  * </p>
  *
- * @author chengyunbo03@gyyx.cn
+ * @author chengyunbo
  * @since 2025-02-25 11:15
  */
 
@@ -30,6 +27,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @TableName("user")
+@Builder
 public class ResUser implements Serializable, UserDetails {
 
     @TableId(type = IdType.AUTO)

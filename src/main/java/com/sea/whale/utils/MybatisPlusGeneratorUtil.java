@@ -11,7 +11,7 @@ import java.util.Collections;
 
 /**
  * @description: MyBatis-plus代码自动生成工具
- * @author: chengyunbo@gyyx.cn
+ * @author: chengyunbo
  * @time: 19:41
  */
 public class MybatisPlusGeneratorUtil {

@@ -1,22 +1,22 @@
 package com.sea.whale.security;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.sea.whale.exception.AppException;
 import com.sea.whale.mapper.ResUserMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
+
+import static com.sea.whale.enums.ResultEnum.USER_NOT_EXIST;
 
 /**
  * <p>
- *
+ * 查询库表用户信息
  * </p>
  *
- * @author chengyunbo03@gyyx.cn
+ * @author chengyunbo
  * @since 2025-02-25 11:16
  */
 @Service
@@ -34,11 +34,14 @@ public class ResUserBizImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LambdaQueryWrapper<ResUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ResUser::getUsername,username);
-        try{
-            return resUserMapper.selectOne(queryWrapper);
-        }catch (Exception e){
-            log.error("用户不存在");
-            return null;
+        ResUser resUser = resUserMapper.selectOne(queryWrapper);
+        log.info("查询用户信息:{}", resUser);
+        if (resUser != null) {
+            return resUser;
+        }else {
+            throw new UsernameNotFoundException(
+                    "用户不存在", new AppException(USER_NOT_EXIST)
+            );
         }
     }
 }
