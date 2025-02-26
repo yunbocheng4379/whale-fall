@@ -24,8 +24,8 @@ public class UserRegistration {
     @Test
     public void insertUser() {
         UserDTO userDTO = UserDTO.builder()
-                .userName("程云博")
-                .password(new BCryptPasswordEncoder().encode("123456"))
+                .userName("王蓉")
+                .password(new BCryptPasswordEncoder().encode("88888888"))
                 .flag(1).build();
         userService.insertUser(userDTO);
     }
