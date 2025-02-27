@@ -19,4 +19,6 @@ public class OperateLogPojo {
 
     private Object[] params;
 
+    public OperateLogPojo(OperateLog opLog, String username, Object[] args, String requestParams) {
+    }
 }

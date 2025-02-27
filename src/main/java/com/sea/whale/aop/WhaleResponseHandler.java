@@ -3,7 +3,7 @@ package com.sea.whale.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.sea.whale.entity.R;
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -22,11 +22,9 @@ public class WhaleResponseHandler implements ResponseBodyAdvice<Object> {
 
 
     @Override
-    public Object beforeBodyWrite(Object body, @NotNull MethodParameter methodParameter, @NotNull MediaType selectedContentType, @NotNull Class<? extends HttpMessageConverter<?>> selectedConverterType, @NotNull ServerHttpRequest request, @NotNull ServerHttpResponse response) {
+    public Object beforeBodyWrite(@NotNull Object body, @NotNull MethodParameter methodParameter, @NotNull MediaType selectedContentType, @NotNull Class<? extends HttpMessageConverter<?>> selectedConverterType, @NotNull ServerHttpRequest request, @NotNull ServerHttpResponse response) {
         if (body instanceof R)
             return body;
-        else if (body == null)
-            return R.ok();
         else if (body instanceof String) {
             //解决返回值为字符串时，不能正常包装
             return JSON.toJSONString(R.ok().data("data", body));

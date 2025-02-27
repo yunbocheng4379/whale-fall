@@ -7,11 +7,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import springfox.documentation.oas.annotations.EnableOpenApi;
 
 @SpringBootApplication
 @MapperScan("com.sea.whale.mapper")
-@EnableOpenApi
 @EnableTransactionManagement
 @EnableAsync
 @EnableCaching

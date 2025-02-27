@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.9</version>
+        <version>3.4.3</version>
         <!-- 该路径默认为：.../pom.xml，如果路径不一样，可以手动进行指定 -->
         <relativePath/>
     </parent>
@@ -33,7 +33,7 @@
     <!-- 项目的简单描述（鲸落于海，星辰于洼） -->
     <description>Whales fall on the sea, stars in the pools</description>
     <!-- 项目主页的链接 -->
-    <url>https://github.com/yunbocheng</url>
+    <url>https://github.com/yunbocheng4379/whale-fall</url>
 
     <!-- 依赖版本 -->
     <properties>
@@ -41,11 +41,11 @@
         <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
         <mysql-connector-java>8.0.16</mysql-connector-java>
         <lombok.version>1.18.20</lombok.version>
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
-        <generator.version>3.5.3</generator.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-plus-core.version>3.5.5</mybatis-plus-core.version>
         <validation.version>3.0.4</validation.version>
-        <swagger-annotations.version>1.5.20</swagger-annotations.version>
-        <springfox.version>3.0.0</springfox.version>
+        <swagger-annotations.version>2.2.0</swagger-annotations.version>
+        <springfox.version>2.3.0</springfox.version>
         <fastjson.version>1.2.83</fastjson.version>
         <hutool-all.version>5.1.2</hutool-all.version>
     </properties>
@@ -148,19 +148,40 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- Spring Boot 3 基础依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.1.5</version>
+        </dependency>
 
-        <!-- MyBatis-plus依赖，简化CRUD -->
+        <!-- MyBatis-Plus 集成 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
+            <version>3.5.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis-spring</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
-        <!-- MyBatis-plus 代码生成器的依赖 -->
+        <!-- 明确指定 MyBatis 版本 -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>${generator.version}</version>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>3.0.3</version>
         </dependency>
 
         <!-- Web页面模板引擎-->
@@ -178,15 +199,15 @@
 
         <!-- swagger依赖 -->
         <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${swagger-annotations.version}</version>
         </dependency>
 
         <!-- 可以自定义编写API文档依赖 -->
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
             <version>${springfox.version}</version>
         </dependency>
 
@@ -259,6 +280,12 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.10.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
     <!-- 构建设置 -->
@@ -311,8 +338,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>14</source>
+                    <target>14</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>

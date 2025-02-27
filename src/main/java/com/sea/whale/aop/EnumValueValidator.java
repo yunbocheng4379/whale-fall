@@ -1,9 +1,10 @@
 package com.sea.whale.aop;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
-public class EnumValueValidator implements ConstraintValidator<EnumValue,Object>{
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
+public class EnumValueValidator implements ConstraintValidator<EnumValue,Object> {
 
     private String[] strValues;
     private int[] intValues;

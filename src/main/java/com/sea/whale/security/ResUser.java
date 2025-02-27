@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 /**
  * <p>
@@ -47,7 +47,7 @@ public class ResUser implements Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // 返回一个SimpleGrantedAuthority对象，表示用户的角色
-        return List.of(new SimpleGrantedAuthority(role));
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
     @Override

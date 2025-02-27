@@ -1,7 +1,6 @@
 package com.sea.whale.controller;
 
 import com.sea.whale.entity.R;
-import com.sea.whale.exception.AppException;
 import com.sea.whale.security.JwtUtil;
 import com.sea.whale.security.ResUser;
 import io.swagger.v3.oas.annotations.tags.Tag;

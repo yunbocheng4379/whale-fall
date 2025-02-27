@@ -2,24 +2,26 @@ package com.sea.whale.entity;
 
 import com.sea.whale.enums.ResultEnum;
 import com.sea.whale.exception.AppException;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
-@ApiModel(value = "结果集实体", description = "统一结果集封装")
+@Schema(name = "结果集实体", description = "统一结果集封装")
 public class R {
 
-    @ApiModelProperty("成功状态")
+    @Schema(name = "成功状态")
     private Boolean success ;
-    @ApiModelProperty("状态码")
+
+    @Schema(name = "状态码")
     private Integer code;
-    @ApiModelProperty("提示信息")
+
+    @Schema(name = "提示信息")
     private String message;
-    @ApiModelProperty("数据")
+
+    @Schema(name = "数据")
     private Map<String, Object> data = new HashMap<>();
 
     public static R ok() {

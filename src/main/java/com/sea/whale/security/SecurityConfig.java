@@ -15,7 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -76,8 +76,7 @@ public class SecurityConfig {
     @Bean //配置安全过滤器链
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
-        //取消默认的登录页面
-        http.cors().and()
+        http.cors(cors -> {})
                 .formLogin(AbstractHttpConfigurer::disable)
                 //取消默认的登出页面
                 .logout(AbstractHttpConfigurer::disable)
@@ -90,7 +89,7 @@ public class SecurityConfig {
                 //禁用http基本认证，因为传输数据用的post，且请求体为JSON
                 .httpBasic(AbstractHttpConfigurer::disable)
                 //添加自定义的JWT过滤器
-                .addFilterBefore(new JwtRequestFilter(permitAllMatchers),  FilterSecurityInterceptor.class)
+                .addFilterBefore(new JwtRequestFilter(permitAllMatchers),  AuthorizationFilter.class)
                 //Security异常拦截
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint())

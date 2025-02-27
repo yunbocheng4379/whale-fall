@@ -30,6 +30,8 @@ spring:
         - classpath:/templates/
         - classpath:/web/
 
+springdoc:
+  swagger-ui.path: /swagger-ui.html
 
 # mybatis-plus 配置
 mybatis-plus:
