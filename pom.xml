@@ -59,15 +59,6 @@
             <groupId>org.springframework.boot</groupId>
             <!-- 依赖项的子项目名 -->
             <artifactId>spring-boot-starter-web</artifactId>
-            <!-- 可选依赖、依赖排除 -->
-            <!-- 排除关联依赖的引入，可以引入多个依赖排除 -->
-            <!-- 排除springboot自带的logback框架 -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!--SpringBoot的单元测试依赖 -->
@@ -103,18 +94,6 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- 用于安全防护策略 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
-
-        <!-- 开启JWT的模式进行安全认证 -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.security</groupId>-->
-<!--            <artifactId>spring-security-jwt</artifactId>-->
-<!--            <version>${spring-security-jwt.version}</version>-->
-<!--        </dependency>-->
 
         <!-- MySQL依赖 -->
         <dependency>
@@ -136,23 +115,10 @@
             <version>${lombok.version}</version>
         </dependency>
 
-        <!-- 日志依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-
         <!-- @RequestMapping注解定义了请求映射"/"，使用Thymeleaf模板引擎渲染了一个名为"index"的页面 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!-- Spring Boot 3 基础依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>3.1.5</version>
         </dependency>
 
         <!-- MyBatis-Plus 集成 -->
@@ -262,19 +228,19 @@
             <artifactId>spring-security-web</artifactId>
         </dependency>
 
-        <!--      jwt认证模块-->
+        <!-- jwt认证模块 -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.10.2</version>
         </dependency>
-        <!--      jwt api impl实现-->
+        <!-- jwt api impl实现 -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.10.2</version>
         </dependency>
-        <!--      jwt json-->
+        <!-- jwt json -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
