@@ -64,7 +64,6 @@ public class SecurityConfig {
             JwtRequestFilter jwtRequestFilter) throws Exception {
 
         http
-                // 禁用不必要的配置
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .logout(AbstractHttpConfigurer::disable)
@@ -75,19 +74,17 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // 异常处理
-                .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(authenticationEntryPoint()))
-
                 // 权限配置
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PERMIT_ALL_MATCHERS.toArray(new RequestMatcher[0]))
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-
                 // 添加 JWT 过滤器
-                .addFilterBefore(jwtRequestFilter, AuthorizationFilter.class);
+                .addFilterBefore(jwtRequestFilter, AuthorizationFilter.class)
+                // 异常处理
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint()));
 
         return http.build();
     }

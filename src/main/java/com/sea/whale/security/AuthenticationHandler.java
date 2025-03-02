@@ -6,7 +6,6 @@ import com.sea.whale.utils.JsonUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
@@ -40,11 +39,11 @@ public class AuthenticationHandler implements AuthenticationEntryPoint {
         int code = determineErrorCode(authException);
         String message = authException.getMessage();
 
-        // 构建响应
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        // 构建错误响应
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Expose-Headers", "Authorization");
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(JsonUtil.toJson(
-                R.error(code, message)
-        ));
+        response.getWriter().write(JsonUtil.toJson(R.error(code, message)));
     }
 }

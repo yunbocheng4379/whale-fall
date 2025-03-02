@@ -17,8 +17,7 @@ public enum ResultEnum {
     USER_NOT_EXIST(600, "用户名或密码输入错误，登录失败"),
     // --- JWT相关验证相关 ---
     JWT_LOSE_CODE(401, "JWT令牌缺失,请重新登录"),
-    JWT_FAIL_CODE(402, "JWT令牌验证失败,请重新登录"),
-    JWT_EXPIRED_CODE(403, "JWT令牌过期,请重新登录");
+    JWT_FAIL_CODE(402, "JWT令牌验证失败,请重新登录");
 
 
     private final Integer code;

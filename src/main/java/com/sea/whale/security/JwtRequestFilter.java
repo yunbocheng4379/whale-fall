@@ -24,7 +24,7 @@ import java.util.List;
  * JWT令牌验证拦截器
  * </p>
  *
- * @author chengyunbo03
+ * @author chengyunbo
  * @since 2025-02-25 18:02
  */
 

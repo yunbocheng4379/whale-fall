@@ -42,12 +42,18 @@
         <mysql-connector-java>8.0.16</mysql-connector-java>
         <lombok.version>1.18.20</lombok.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
-        <mybatis-plus-core.version>3.5.5</mybatis-plus-core.version>
+        <mybatis-spring.verison>3.0.3</mybatis-spring.verison>
+        <mybatis.version>3.5.13</mybatis.version>
         <validation.version>3.0.4</validation.version>
         <swagger-annotations.version>2.2.0</swagger-annotations.version>
         <springfox.version>2.3.0</springfox.version>
         <fastjson.version>1.2.83</fastjson.version>
         <hutool-all.version>5.1.2</hutool-all.version>
+        <xxl-job-core.version>2.3.0</xxl-job-core.version>
+        <jjwt-api.version>0.10.2</jjwt-api.version>
+        <jjwt-impl.version>0.10.2</jjwt-impl.version>
+        <jjwt-jackson.version>0.10.2</jjwt-jackson.version>
+        <annotations.version>24.0.0</annotations.version>
     </properties>
 
     <!-- SpringBoot项目的基础依赖 -->
@@ -100,7 +106,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java}</version>
-        </dependency>
+        </dependency>·
 
         <!-- JDBC -->
         <dependency>
@@ -115,17 +121,11 @@
             <version>${lombok.version}</version>
         </dependency>
 
-        <!-- @RequestMapping注解定义了请求映射"/"，使用Thymeleaf模板引擎渲染了一个名为"index"的页面 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
         <!-- MyBatis-Plus 集成 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.5</version>
+            <version>${mybatis-plus.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.mybatis</groupId>
@@ -142,18 +142,12 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.5.13</version>
+            <version>${mybatis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>3.0.3</version>
-        </dependency>
-
-        <!-- Web页面模板引擎-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
+            <version>${mybatis-spring.verison}</version>
         </dependency>
 
         <!-- Validator依赖 -->
@@ -208,7 +202,7 @@
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
-            <version>2.3.0</version>
+            <version>${xxl-job-core.version}</version>
         </dependency>
 
         <!-- springBoot-security 依赖 -->
@@ -232,24 +226,24 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.10.2</version>
+            <version>${jjwt-api.version}</version>
         </dependency>
         <!-- jwt api impl实现 -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.10.2</version>
+            <version>${jjwt-impl.version}</version>
         </dependency>
         <!-- jwt json -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.10.2</version>
+            <version>${jjwt-jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>24.0.0</version>
+            <version>${annotations.version}</version>
             <scope>compile</scope>
         </dependency>
 
