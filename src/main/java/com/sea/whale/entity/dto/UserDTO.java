@@ -2,6 +2,7 @@ package com.sea.whale.entity.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sea.whale.aop.EnumValue;
 import com.sea.whale.operatelog.LogProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -11,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Data
@@ -39,4 +41,19 @@ public class UserDTO implements Serializable {
     @LogProperty("用户状态")
     @EnumValue(intValues = {0,1}, message = "这个标志只能是0或者1")
     private Integer flag;
+
+    @Schema(name = "用户角色")
+    @LogProperty("用户角色")
+    private Integer userRole;
+
+
+    @Schema(name = "创建时间")
+    @LogProperty("创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date createTime;
+
+    @Schema(name = "更新时间")
+    @LogProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date updateTime;
 }

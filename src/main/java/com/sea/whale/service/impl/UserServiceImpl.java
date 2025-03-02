@@ -1,6 +1,7 @@
 package com.sea.whale.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sea.whale.entity.R;
 import com.sea.whale.entity.dto.UserDTO;
 import com.sea.whale.mapper.UserMapper;
 import com.sea.whale.service.UserService;
@@ -24,5 +25,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDTO> implements
     @Override
     public void insertUser(UserDTO userDTO) {
         userMapper.insertUser(userDTO);
+    }
+
+    @Override
+    public R getMenu(String username) {
+        return null;
     }
 }

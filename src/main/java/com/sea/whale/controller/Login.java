@@ -3,6 +3,7 @@ package com.sea.whale.controller;
 import com.sea.whale.entity.R;
 import com.sea.whale.security.JwtUtil;
 import com.sea.whale.security.ResUser;
+import com.sea.whale.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +32,9 @@ import java.util.Map;
 @RequestMapping("/user")
 public class Login {
 
+
+    private UserService userService;
+
     private final AuthenticationManager authenticationManager;
 
     public Login(AuthenticationManager authenticationManager) {
@@ -55,6 +59,12 @@ public class Login {
         //返回token，后面使用token进行认证
         return R.ok().data("token", token);
     }
+
+    @PostMapping("/getMenu")
+    public R getMenu(@RequestBody String username) {
+        return userService.getMenu(username);
+    }
+
 
     private String generateJwtToken(ResUser resuser, UserDetails userDetails) {
         Map<String, Object> payload = new HashMap<>();
