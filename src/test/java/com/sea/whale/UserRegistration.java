@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * <p>
  *
@@ -26,7 +29,11 @@ public class UserRegistration {
         UserDTO userDTO = UserDTO.builder()
                 .userName("王蓉")
                 .password(new BCryptPasswordEncoder().encode("88888888"))
-                .flag(1).build();
+                .userRole(2)
+                .flag(1)
+                .createTime(new Date())
+                .updateTime(new Date())
+                .build();
         userService.insertUser(userDTO);
     }
 

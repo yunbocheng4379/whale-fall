@@ -1,20 +1,21 @@
 package com.sea.whale.controller;
 
 import com.sea.whale.entity.R;
+import com.sea.whale.exception.AppException;
 import com.sea.whale.security.JwtUtil;
 import com.sea.whale.security.ResUser;
 import com.sea.whale.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,16 +31,12 @@ import java.util.Map;
 @Tag(name = "登录验证")
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class Login {
 
-
-    private UserService userService;
+    private final UserService userService;
 
     private final AuthenticationManager authenticationManager;
-
-    public Login(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 
     @PostMapping("/login")
     public R login(@RequestBody ResUser user) {
@@ -60,9 +57,9 @@ public class Login {
         return R.ok().data("token", token);
     }
 
-    @PostMapping("/getMenu")
-    public R getMenu(@RequestBody String username) {
-        return userService.getMenu(username);
+    @GetMapping("/getMenu")
+    public R getMenu(@RequestParam String username) {
+        return R.ok().data("data", userService.getMenu(username));
     }
 
 

@@ -23,7 +23,7 @@
      -->
     <groupId>com.sea</groupId>
     <!-- 本项目的唯一ID，一个groupId下可能多个项目，此时就是靠这个标识进行区分的 -->
-    <artifactId>java-framework</artifactId>
+    <artifactId>whale_fall</artifactId>
     <!-- 本项项目所处的版本号 -->
     <version>0.0.1-SNAPSHOT</version>
     <!-- 打包类型：jar、war、pom、maven-plugin、rar等等 -->

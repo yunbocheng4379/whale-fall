@@ -4,6 +4,19 @@
 
 
     <insert id="insertUser">
-        INSERT INTO user (username,password,flag) VALUES (#{userName},#{password},#{flag})
+        INSERT INTO user (username,password,flag,user_role,create_time,update_time)
+        VALUES (#{userName},#{password},#{flag},#{userRole},#{createTime},#{updateTime})
     </insert>
+
+    <select id="getMenuList" resultType="com.sea.whale.entity.vo.MenuVO">
+        SELECT ap.id , b.menu_id, ap.menu_name `text`
+        FROM (SELECT * FROM `user` WHERE flag = 1 AND username = #{username}) a
+                 LEFT JOIN role_app_auth b ON a.user_role = b.role_id
+                 LEFT JOIN (SELECT * FROM app_menu WHERE menu_flag = 1) ap ON b.menu_id = ap.id
+    </select>
+    <select id="getNodeList" resultType="com.sea.whale.entity.vo.MenuVO">
+        SELECT no.id, no.menu_id, no.node_name `text`, no.node_route route
+        FROM (SELECT * FROM app_menu WHERE menu_flag = 1) ap
+                 LEFT JOIN (SELECT * FROM app_node WHERE node_flag = 1) no ON ap.id = no.menu_id
+    </select>
 </mapper>

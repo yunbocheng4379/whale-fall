@@ -30,7 +30,8 @@ public class SecurityConfig {
     // 白名单路径集合
     private static final List<RequestMatcher> PERMIT_ALL_MATCHERS = Arrays.asList(
             new AntPathRequestMatcher("/user/login", "POST"),
-            new AntPathRequestMatcher("/user/logout", "POST")
+            new AntPathRequestMatcher("/user/logout", "POST"),
+            new AntPathRequestMatcher("/user/getMenu", "GET")
     );
 
     private final UserDetailsService userDetailsService;
