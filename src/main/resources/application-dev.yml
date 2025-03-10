@@ -18,28 +18,29 @@ spring:
       connection-timeout: 30000
 
   # redis 配置
-  redis:
-    # 地址
-    host: 127.0.0.1
-    # 端口，默认：6379
-    port: 6379
-    # 密码
-    # password: 0tIxKtzsf2,默认：无
-    # 指定数据库索引。使用索引为0的数据库
-    database: 0
-    # 链接超时时间
-    timeout: 10s
-    # 设置连接池参数
-    lettuce:
-      pool:
-        # 连接池最大连接数（使用负值表示没有限制）
-        max-active: 32
-        # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-wait: 300ms
-        # 链接池中的最大空闲链接数
-        max-idle: 16
-        # 连接池中的最小空闲链接数
-        min-idle: 8
+  data:
+    redis:
+      # 地址
+      host: 127.0.0.1
+      # 端口，默认：6379
+      port: 6379
+      # 密码
+      # password: 0tIxKtzsf2,默认：无
+      # 指定数据库索引。使用索引为0的数据库
+      database: 0
+      # 链接超时时间
+      timeout: 10s
+      # 设置连接池参数
+      lettuce:
+        pool:
+          # 连接池最大连接数（使用负值表示没有限制）
+          max-active: 32
+          # 连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: 300ms
+          # 链接池中的最大空闲链接数
+          max-idle: 16
+          # 连接池中的最小空闲链接数
+          min-idle: 8
 
   # 任务调度线程池（SpringBoot中提供了自动配置线程的方法）
   # 配置完之后定时任务可以并行异步执行
@@ -77,3 +78,18 @@ threadPool:
   corePoolSize: 100
   maxPoolSize: 300
   queueCapacity: 600
+
+xxl:
+  job:
+    enable: true
+    # 执行器通讯TOKEN [选填]：非空时启用；
+    accessToken: default_token
+    # 调度中心部署跟地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。
+    #执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    executor:
+      port: 1999
+      appName: xxl-job-demo
+      logPath: D:/Users/Desktop/xxl-job-log
+      logretentiondays: 30

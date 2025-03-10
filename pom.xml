@@ -49,7 +49,7 @@
         <springfox.version>2.3.0</springfox.version>
         <fastjson.version>1.2.83</fastjson.version>
         <hutool-all.version>5.1.2</hutool-all.version>
-        <xxl-job-core.version>2.3.0</xxl-job-core.version>
+        <xxl-job-core.version>3.0.0</xxl-job-core.version>
         <jjwt-api.version>0.10.2</jjwt-api.version>
         <jjwt-impl.version>0.10.2</jjwt-impl.version>
         <jjwt-jackson.version>0.10.2</jjwt-jackson.version>
