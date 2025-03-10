@@ -30,6 +30,10 @@ public class MenuVO implements Serializable {
 
     private String route;
 
+    private Integer rank;
+
+    private String icon;
+
     private List<MenuVO> children;
 
 }

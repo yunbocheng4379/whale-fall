@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 06/03/2025 23:28:06
+ Date: 10/03/2025 18:54:26
 */
 
 SET NAMES utf8mb4;
@@ -24,18 +24,21 @@ DROP TABLE IF EXISTS `app_menu`;
 CREATE TABLE `app_menu`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '系统菜单ID',
   `menu_name` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单名',
+  `menu_icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '菜单图标',
+  `menu_rank` int(11) NULL DEFAULT NULL COMMENT '菜单排名',
   `menu_flag` tinyint(1) NULL DEFAULT 1 COMMENT '菜单状态(0: 删除,1: 正常)',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `app_menu_id_uindex`(`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统菜单' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统菜单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app_menu
 -- ----------------------------
-INSERT INTO `app_menu` VALUES (1, '记账', 1, '2025-03-05 10:07:19', '2025-03-05 10:07:20');
-INSERT INTO `app_menu` VALUES (3, 'AI智能', 1, '2025-03-05 10:07:47', '2025-03-05 10:07:48');
+INSERT INTO `app_menu` VALUES (1, '记账', NULL, 1, 1, '2025-03-05 10:07:19', '2025-03-05 10:07:20');
+INSERT INTO `app_menu` VALUES (3, 'AI智能', NULL, 3, 1, '2025-03-05 10:07:47', '2025-03-05 10:07:48');
+INSERT INTO `app_menu` VALUES (4, '旅行地图', NULL, 2, 1, '2025-03-09 15:29:23', '2025-03-09 15:29:24');
 
 -- ----------------------------
 -- Table structure for app_node
@@ -45,6 +48,8 @@ CREATE TABLE `app_node`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单节点ID',
   `menu_id` int(11) NULL DEFAULT NULL COMMENT '父菜单ID',
   `node_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '节点名称',
+  `node_icon` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '节点图标',
+  `node_rank` int(11) NULL DEFAULT NULL COMMENT '节点排名',
   `node_route` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '节点前端路由',
   `node_flag` tinyint(1) NULL DEFAULT NULL COMMENT '节点状态',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
@@ -56,12 +61,12 @@ CREATE TABLE `app_node`  (
 -- ----------------------------
 -- Records of app_node
 -- ----------------------------
-INSERT INTO `app_node` VALUES (1, 1, '个人记账', '/account/personage', 1, '2025-03-05 10:08:13', '2025-03-05 10:08:16');
-INSERT INTO `app_node` VALUES (2, 1, '共同记账', '/account/team', 1, '2025-03-05 10:08:34', '2025-03-05 10:08:35');
-INSERT INTO `app_node` VALUES (3, 1, '账单统计', '/account/statistic', 1, '2025-03-05 10:08:56', '2025-03-05 10:08:57');
-INSERT INTO `app_node` VALUES (4, 3, 'AI问答', '/agent/ask', 1, '2025-03-05 10:09:27', '2025-03-05 10:09:28');
-INSERT INTO `app_node` VALUES (5, 3, 'AI图像', '/agent/image', 1, '2025-03-05 10:09:45', '2025-03-05 10:09:46');
-INSERT INTO `app_node` VALUES (6, 3, 'AI视频', '/agent/video', 1, '2025-03-05 10:10:02', '2025-03-05 10:10:03');
+INSERT INTO `app_node` VALUES (1, 1, '个人记账', NULL, 1, '/account/personage', 1, '2025-03-05 10:08:13', '2025-03-05 10:08:16');
+INSERT INTO `app_node` VALUES (2, 1, '共同记账', NULL, 2, '/account/team', 1, '2025-03-05 10:08:34', '2025-03-05 10:08:35');
+INSERT INTO `app_node` VALUES (3, 1, '账单统计', NULL, 3, '/account/statistic', 1, '2025-03-05 10:08:56', '2025-03-05 10:08:57');
+INSERT INTO `app_node` VALUES (4, 3, 'AI问答', NULL, 2, '/agent/ask', 1, '2025-03-05 10:09:27', '2025-03-05 10:09:28');
+INSERT INTO `app_node` VALUES (5, 3, 'AI图像', NULL, 3, '/agent/image', 1, '2025-03-05 10:09:45', '2025-03-05 10:09:46');
+INSERT INTO `app_node` VALUES (6, 3, 'AI视频2', NULL, 1, '/agent/video', 1, '2025-03-05 10:10:02', '2025-03-05 10:10:03');
 
 -- ----------------------------
 -- Table structure for operate_log
@@ -98,7 +103,7 @@ CREATE TABLE `role_app_auth`  (
 -- ----------------------------
 INSERT INTO `role_app_auth` VALUES (1, 1, 1);
 INSERT INTO `role_app_auth` VALUES (3, 1, 3);
-INSERT INTO `role_app_auth` VALUES (4, 1, 1);
+INSERT INTO `role_app_auth` VALUES (4, 1, 4);
 
 -- ----------------------------
 -- Table structure for user
