@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestJobHandler {
 
-    // @XxlJob("testXxlJob")
-    public void productJobHandler() throws Exception {
-        int a = 1/0;
+    @XxlJob("testXxlJob")
+    public void productJobHandler() {
+        System.out.println(111111);
         XxlJobHelper.handleSuccess("执行结果：----> 任务执行成功"  );
     }
 
