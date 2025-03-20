@@ -25,7 +25,6 @@ public class Test {
 
     @PostMapping("/test")
     public R test(@RequestBody ResUser user) {
-        System.out.println(user);
         throw new AppException(ResultEnum.USER_NOT_EXIST);
     }
 
