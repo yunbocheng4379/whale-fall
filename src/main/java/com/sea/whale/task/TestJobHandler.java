@@ -15,7 +15,6 @@ public class TestJobHandler {
 
     @XxlJob("testXxlJob")
     public void productJobHandler() {
-        System.out.println(111111);
         XxlJobHelper.handleSuccess("执行结果：----> 任务执行成功"  );
     }
 
