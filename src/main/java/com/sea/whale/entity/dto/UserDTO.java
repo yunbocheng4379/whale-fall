@@ -37,6 +37,10 @@ public class UserDTO implements Serializable {
     @LogProperty("用户密码")
     private String password;
 
+    @Schema(name = "用户邮箱")
+    @LogProperty("用户邮箱")
+    private String email;
+
     @Schema(name = "用户状态")
     @LogProperty("用户状态")
     @EnumValue(intValues = {0,1}, message = "这个标志只能是0或者1")

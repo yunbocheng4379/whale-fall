@@ -40,6 +40,15 @@ public class ResUser implements Serializable, UserDetails {
     @TableField(value = "password")
     private String password;
 
+    @TableField(value = "email")
+    private String email;
+
+    @TableField(exist = false)
+    private String code;
+
+    @TableField(exist = false)
+    private String loginType;
+
     //表中没有该字段 用于封装角色
     @TableField(exist = false)
     private String role="user";

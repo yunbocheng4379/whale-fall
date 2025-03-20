@@ -157,6 +157,12 @@
             <version>${validation.version}</version>
         </dependency>
 
+        <!-- 邮箱依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- swagger依赖 -->
         <dependency>
             <groupId>org.springdoc</groupId>

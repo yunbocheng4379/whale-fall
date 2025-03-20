@@ -27,9 +27,10 @@ public class UserRegistration {
     @Test
     public void insertUser() {
         UserDTO userDTO = UserDTO.builder()
-                .userName("王蓉")
-                .password(new BCryptPasswordEncoder().encode("88888888"))
+                .userName("李坤龙")
+                .password(new BCryptPasswordEncoder().encode("666666"))
                 .userRole(2)
+                .email("2066200132@qq.com")
                 .flag(1)
                 .createTime(new Date())
                 .updateTime(new Date())

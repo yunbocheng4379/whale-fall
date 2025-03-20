@@ -4,8 +4,8 @@
 
 
     <insert id="insertUser">
-        INSERT INTO user (username,password,flag,user_role,create_time,update_time)
-        VALUES (#{userName},#{password},#{flag},#{userRole},#{createTime},#{updateTime})
+        INSERT INTO user (username,password,email,flag,user_role,create_time,update_time)
+        VALUES (#{userName},#{password},#{email},#{flag},#{userRole},#{createTime},#{updateTime})
     </insert>
 
     <select id="getMenuList" resultType="com.sea.whale.entity.vo.MenuVO">
@@ -20,5 +20,11 @@
               FROM (SELECT * FROM app_menu WHERE menu_flag = 1) ap
                        LEFT JOIN (SELECT * FROM app_node WHERE node_flag = 1) no ON ap.id = no.menu_id) c
         WHERE c.id IS NOT NULL
+    </select>
+    <select id="getLoginUserByUsername" resultType="com.sea.whale.security.ResUser">
+        SELECT username, password, email FROM `user` WHERE username = #{username}
+    </select>
+    <select id="getLoginUserByEmail" resultType="com.sea.whale.security.ResUser">
+        SELECT username, password, email FROM `user` WHERE email = #{email}
     </select>
 </mapper>

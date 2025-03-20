@@ -1,9 +1,13 @@
 package com.sea.whale.security;
 
+import com.sea.whale.security.mail.MailCodeAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -30,15 +34,21 @@ public class SecurityConfig {
     // 白名单路径集合
     private static final List<RequestMatcher> PERMIT_ALL_MATCHERS = Arrays.asList(
             new AntPathRequestMatcher("/user/login", "POST"),
-            new AntPathRequestMatcher("/user/logout", "POST"),
-            new AntPathRequestMatcher("/user/getMenu", "GET")
+            new AntPathRequestMatcher("/user/**")
     );
 
-    private final UserDetailsService userDetailsService;
+    @Qualifier("usernameUserDetailsService") private final UserDetailsService usernameUserService;
+    @Qualifier("mailUserDetailsService") private final UserDetailsService mailUserService;
+    private final RedisTemplate<String, String> redisTemplate;
 
-    // 通过构造器注入 UserDetailsService
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    // 通过构造器注入并指定Bean名称
+    public SecurityConfig(
+            @Qualifier("usernameUserDetailsService") UserDetailsService usernameUserService,
+            @Qualifier("mailUserDetailsService") UserDetailsService mailUserService,
+            RedisTemplate<String, String> redisTemplate) {
+        this.usernameUserService = usernameUserService;
+        this.mailUserService = mailUserService;
+        this.redisTemplate = redisTemplate;
     }
 
     @Bean
@@ -46,17 +56,29 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // 邮箱验证码认证提供者
     @Bean
-    public AuthenticationManager authenticationManager(
-            HttpSecurity http,
-            BCryptPasswordEncoder passwordEncoder) throws Exception {
+    public MailCodeAuthenticationProvider customMailAuthProvider() {
+        return new MailCodeAuthenticationProvider(mailUserService, redisTemplate);
+    }
 
-        AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder
-                .userDetailsService(userDetailsService)  // 绑定自定义 UserDetailsService
-                .passwordEncoder(passwordEncoder);       // 绑定密码编码器
+    // 密码验证认证提供者
+    @Bean
+    public DaoAuthenticationProvider daoAuthProvider(BCryptPasswordEncoder encoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(usernameUserService);
+        provider.setPasswordEncoder(encoder);
+        return provider;
+    }
 
-        return builder.build();
+    @Bean
+    public AuthenticationManager authenticationManager(DaoAuthenticationProvider daoAuthProvider,
+            MailCodeAuthenticationProvider mailProvider) {
+        // 组合多个认证提供者
+        return new ProviderManager(
+                daoAuthProvider,   // 账号密码登录方式
+                mailProvider // 验证码登录方式
+        );
     }
 
     @Bean
