@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 10/03/2025 18:54:26
+ Date: 23/03/2025 22:58:09
 */
 
 SET NAMES utf8mb4;
@@ -96,7 +96,7 @@ CREATE TABLE `role_app_auth`  (
   `menu_id` int(11) NULL DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `role_app_auth_id_uindex`(`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户角色与菜单权限对应表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户角色与菜单权限对应表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_app_auth
@@ -104,6 +104,7 @@ CREATE TABLE `role_app_auth`  (
 INSERT INTO `role_app_auth` VALUES (1, 1, 1);
 INSERT INTO `role_app_auth` VALUES (3, 1, 3);
 INSERT INTO `role_app_auth` VALUES (4, 1, 4);
+INSERT INTO `role_app_auth` VALUES (5, 2, 1);
 
 -- ----------------------------
 -- Table structure for user
@@ -111,20 +112,22 @@ INSERT INTO `role_app_auth` VALUES (4, 1, 4);
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户名',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户密码',
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户名',
+  `password` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户密码',
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户邮箱',
   `user_role` int(11) NULL DEFAULT NULL COMMENT '用户角色ID',
   `flag` tinyint(1) NULL DEFAULT NULL COMMENT '用户状态(0: 删除，1: 正常)',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '用户创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '用户修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (2, '程云博', '$2a$10$P/S2NXwl4QstLR5zHECfMebeEx44h/mtHw/2dxxGg2nHTUGGxfkmO', 1, 1, '2025-03-02 17:57:24', '2025-03-02 17:57:26');
-INSERT INTO `user` VALUES (5, '王蓉', '$2a$10$AWy/A3n2/KCRsBHt.c0iBOrW5Esg9uzlYReo99TzAzULsEuzBmjn.', 2, 1, '2025-03-05 10:42:50', '2025-03-05 10:42:50');
+INSERT INTO `user` VALUES (2, '程云博', '$2a$10$P/S2NXwl4QstLR5zHECfMebeEx44h/mtHw/2dxxGg2nHTUGGxfkmO', '2484720940@qq.com', 1, 1, '2025-03-02 17:57:24', '2025-03-02 17:57:26');
+INSERT INTO `user` VALUES (5, '王蓉', '$2a$10$AWy/A3n2/KCRsBHt.c0iBOrW5Esg9uzlYReo99TzAzULsEuzBmjn.', '269258539@qq.com', 2, 1, '2025-03-05 10:42:50', '2025-03-05 10:42:50');
+INSERT INTO `user` VALUES (7, '李坤龙', '$2a$10$ib/g33d8Z/hrRSaVw3FVN.YH1tEdMLcV1jEsSWJ/qM.cLg.ALUHBa', '2066200132@qq.com', 2, 1, '2025-03-20 17:45:55', '2025-03-20 17:45:55');
 
 -- ----------------------------
 -- Table structure for user_role
