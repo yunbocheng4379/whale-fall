@@ -1,8 +1,7 @@
 package com.sea.whale.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +13,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnProperty(name = "xxl.job.enabled", havingValue = "true")
+@Slf4j
 public class XxlJobConfig {
-
-    private Logger logger = LoggerFactory.getLogger(XxlJobConfig.class);
 
     @Value("${xxl.job.enabled}")
     private boolean enabled;
@@ -44,7 +42,7 @@ public class XxlJobConfig {
     @ConditionalOnProperty(name = "xxl.job.enabled", havingValue = "true")
     public XxlJobSpringExecutor xxlJobExecutor() {
         if (!enabled) return null;
-        logger.info(">>>>>>>>>>> xxl-job config init.");
+        log.info(">>>>>>>>>>> xxl-job config init.");
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
         xxlJobSpringExecutor.setAppname(appname);
