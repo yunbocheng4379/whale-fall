@@ -8,10 +8,12 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 /**
  * <p>
@@ -28,7 +30,7 @@ import java.util.Collections;
 @ToString
 @TableName("user")
 @Builder
-public class ResUser implements Serializable, UserDetails {
+public class ResUser implements Serializable, UserDetails, OAuth2User {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -51,11 +53,23 @@ public class ResUser implements Serializable, UserDetails {
 
     //表中没有该字段 用于封装角色
     @TableField(exist = false)
-    private String role="user";
+    private String role = "ROLE_USER";
+
+    @TableField(exist = false)
+    private Map<String, Object> attributes;
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getName() {
+        return this.getUsername();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 返回一个SimpleGrantedAuthority对象，表示用户的角色
         return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 

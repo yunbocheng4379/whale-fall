@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface UserMapper extends BaseMapper<UserDTO> {
@@ -23,5 +22,7 @@ public interface UserMapper extends BaseMapper<UserDTO> {
     ResUser getLoginUserByUsername(@Param("username") String username);
 
     ResUser getLoginUserByEmail(@Param("email") String email);
+
+    UserDTO getUserById(@Param("userId") Integer userId);
 
 }

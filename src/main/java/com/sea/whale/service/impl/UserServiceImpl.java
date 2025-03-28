@@ -1,6 +1,7 @@
 package com.sea.whale.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sea.whale.entity.User;
 import com.sea.whale.entity.dto.UserDTO;
 import com.sea.whale.entity.vo.MenuVO;
 import com.sea.whale.enums.ResultEnum;
@@ -27,10 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -124,6 +122,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDTO> implements
         ResUser resuser = (ResUser) userDetails;
         String token = generateJwtToken(resuser, userDetails);
         return LoginUser.builder().token(token).username(userDetails.getUsername()).build();
+    }
+
+    @Override
+    public UserDTO getUserById(Integer userId) {
+        return userMapper.getUserById(userId);
     }
 
     private String generateJwtToken(ResUser resuser, UserDetails userDetails) {

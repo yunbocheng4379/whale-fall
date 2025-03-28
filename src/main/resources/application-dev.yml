@@ -16,7 +16,38 @@ spring:
       auto-commit: true
       # 超时时间：单位是毫秒
       connection-timeout: 30000
-
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23liAXNsntwCEAodyS
+            client-secret: 6f58a782702ad1367beee15900a7fa4a7d139e4f
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-name: GitHub
+            scope:
+              - user:email
+              - user:follow
+          gitee:
+            client-id: bf66cae44dcdd7a1f994b159ec27e0459e33edc12964d11aae11835b27033812
+            client-secret: 06e14bdf54851bced1d97ddeb1bb4fd28df964ec421c4f703ab1233c3d2faa02
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-name: Gitee
+            scope:
+              - user_info
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            user-name-attribute: login
+          gitee:
+            authorization-uri: https://gitee.com/oauth/authorize
+            token-uri: https://gitee.com/oauth/token
+            user-info-uri: https://gitee.com/api/v5/user
+            user-name-attribute: login
   # redis 配置
   data:
     redis:
@@ -104,3 +135,5 @@ xxl:
       appName: xxl-job-demo
       logPath: D:/Users/Desktop/xxl-job-log
       logretentiondays: 30
+
+base-url: http://192.168.8.105:10001

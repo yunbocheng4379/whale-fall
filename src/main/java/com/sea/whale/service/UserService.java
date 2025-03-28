@@ -1,7 +1,6 @@
 package com.sea.whale.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.sea.whale.entity.R;
 import com.sea.whale.entity.dto.UserDTO;
 import com.sea.whale.entity.vo.MenuVO;
 import com.sea.whale.security.LoginUser;
@@ -18,5 +17,7 @@ public interface UserService extends IService<UserDTO> {
     void sendVerificationCode(String email);
 
     LoginUser login(ResUser user);
+
+    UserDTO getUserById(Integer userId);
 
 }

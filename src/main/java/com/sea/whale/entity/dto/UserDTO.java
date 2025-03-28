@@ -48,7 +48,7 @@ public class UserDTO implements Serializable {
 
     @Schema(name = "用户角色")
     @LogProperty("用户角色")
-    private Integer userRole;
+    private String userRole = "ROLE_USER";
 
 
     @Schema(name = "创建时间")

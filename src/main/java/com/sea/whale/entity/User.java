@@ -3,6 +3,7 @@ package com.sea.whale.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "user")
+@Builder
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,6 +24,8 @@ public class User implements Serializable {
     private String userName;
 
     private String password;
+
+    private String email;
 
     private Integer flag;
 

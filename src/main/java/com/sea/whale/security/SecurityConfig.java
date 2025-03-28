@@ -1,6 +1,9 @@
 package com.sea.whale.security;
 
 import com.sea.whale.security.mail.MailCodeAuthenticationProvider;
+import com.sea.whale.security.oauth2.CustomOAuth2UserService;
+import com.sea.whale.security.oauth2.OAuthFailureHandler;
+import com.sea.whale.security.oauth2.OAuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +17,14 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -33,8 +41,10 @@ public class SecurityConfig {
 
     // 白名单路径集合
     private static final List<RequestMatcher> PERMIT_ALL_MATCHERS = Arrays.asList(
-            new AntPathRequestMatcher("/user/login", "POST"),
-            new AntPathRequestMatcher("/user/**")
+            new AntPathRequestMatcher("/"),
+            new AntPathRequestMatcher("/user/**"),
+            new AntPathRequestMatcher("/login/oauth2/code/**"),
+            new AntPathRequestMatcher("/oauth2/authorization/**")
     );
 
     @Qualifier("usernameUserDetailsService") private final UserDetailsService usernameUserService;
@@ -103,6 +113,14 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
+                // OAuth2配置
+                .oauth2Login(oauth -> oauth
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService())
+                        )
+                        .successHandler(oauthSuccessHandler())
+                        .failureHandler(authenticationFailureHandler())
+                )
                 // 添加 JWT 过滤器
                 .addFilterBefore(jwtRequestFilter, AuthorizationFilter.class)
                 // 异常处理
@@ -113,9 +131,25 @@ public class SecurityConfig {
     }
 
     @Bean
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService() {
+        return new CustomOAuth2UserService();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler oauthSuccessHandler() {
+        return new OAuthSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new OAuthFailureHandler();
+    }
+
+    @Bean
     public JwtRequestFilter jwtRequestFilter() {
         return new JwtRequestFilter(PERMIT_ALL_MATCHERS);
     }
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -130,21 +164,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(@NotNull CorsRegistry registry) {
-//                registry.addMapping("/**")
-//                        .allowedOriginPatterns("*")
-//                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-//                        .allowedHeaders("*")
-//                        .allowCredentials(true)
-//                        .maxAge(3600);
-//            }
-//        };
-//    }
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
